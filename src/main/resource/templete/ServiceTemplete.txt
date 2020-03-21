@@ -1,0 +1,21 @@
+package com.gui.it.{schema}.service.base;
+
+import java.util.List;
+import java.util.Map;
+import com.gui.it.{schema}.bean.{upperTableName}Bean;
+
+public interface {upperTableName}Service {
+	{upperTableName}Bean inset{upperTableName}({upperTableName}Bean {tableName}Bean) throws Exception;
+
+	void delete{upperTableName}ById(int id) throws Exception;
+
+	void invalid{upperTableName}ById(int id) throws Exception;
+
+	{upperTableName}Bean update{upperTableName}({upperTableName}Bean {tableName}Bean) throws Exception;
+
+	{upperTableName}Bean get{upperTableName}ById(int id) throws Exception;
+
+	List<{upperTableName}Bean> get{upperTableName}List(Map<String, Object> param) throws Exception;
+
+	int get{upperTableName}ListCount(Map<String, Object> param) throws Exception;
+}

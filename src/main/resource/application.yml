@@ -1,0 +1,19 @@
+server:
+  port: 8002
+  
+spring:
+  application:
+    name: user
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://139.199.15.34:3306/common?useUnicode=true&characterEncoding=utf8&autoReconnect=true&failOverReadOnly=false
+    username: root
+    password: As_lihui@666!
+    
+mybatis:
+  type-aliases-package: com.gui.it.code.bean
+  mapper-locations: classpath:com/gui/it/code/dao/impl/*Mapper.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+      

@@ -1,0 +1,74 @@
+package com.gui.it.{schema}.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.gui.it.{schema}.bean.UserBean;
+import com.gui.it.{schema}.dao.base.UserDao;
+import com.gui.it.{schema}.service.base.UserService;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+	@Autowired
+	private UserDao userDao;
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public UserBean insetUser(UserBean userBean) throws Exception {
+		int count = userDao.insetUser(userBean);
+		if (count != 1) {
+			throw new Exception();
+		}
+		return userBean;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void deleteUserById(int id) throws Exception {
+		int count = userDao.deleteUserById(id);
+		if (count != 1) {
+			throw new Exception();
+		}
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void invalidUserById(int id) throws Exception {
+		int count = userDao.invalidUserById(id);
+		if (count != 1) {
+			throw new Exception();
+		}
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public UserBean updateUser(UserBean userBean) throws Exception {
+		int count = userDao.updateUser(userBean);
+		if (count != 1) {
+			throw new Exception();
+		}
+		return userBean;
+	}
+
+	@Override
+	public UserBean getUserById(int id) throws Exception {
+		return userDao.getUserById(id);
+	}
+
+	@Override
+	public List<UserBean> getUserList(Map<String, Object> param)
+			throws Exception {
+		return userDao.getUserList(param);
+	}
+
+	@Override
+	public int getUserListCount(Map<String, Object> param) throws Exception {
+		return userDao.getUserListCount(param);
+	}
+
+}

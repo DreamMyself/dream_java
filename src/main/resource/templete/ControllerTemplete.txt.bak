@@ -1,0 +1,140 @@
+package com.gui.it.{schema}.controller;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import lombok.extern.log4j.Log4j2;
+
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.gui.it.{schema}.bean.LimitBean;
+import com.gui.it.{schema}.bean.ResultBean;
+import com.gui.it.{schema}.bean.{upperTableName}Bean;
+import com.gui.it.{schema}.service.base.{upperTableName}Service;
+
+@Log4j2
+@RestController
+@RequestMapping("/user")
+public class {upperTableName}Controller {
+	
+	@Autowired
+	private {upperTableName}Service {tableName}Service;
+
+	@PostMapping("/inset{upperTableName}")
+	public ResultBean inset{upperTableName}(@RequestBody {upperTableName}Bean {tableName}Bean) {
+		ResultBean result = new ResultBean();
+		try {
+			{tableName}Service.inset{upperTableName}({tableName}Bean);
+			result.setObject({tableName}Bean);
+		} catch (Exception e) {
+			result.setStatus(ResultBean.STATUS_FAIL);
+			result.setMessage("系统错误，请联系管理员！");
+			log.error("系统错误:", e);
+		}
+		return result;
+	}
+
+
+	@DeleteMapping("/delete{upperTableName}ById/{id}")
+	public ResultBean delete{upperTableName}ById(@PathVariable("id") int id) {
+		ResultBean result = new ResultBean();
+		try {
+			{tableName}Service.delete{upperTableName}ById(id);
+		} catch (Exception e) {
+			result.setStatus(ResultBean.STATUS_FAIL);
+			result.setMessage("系统错误，请联系管理员！");
+			log.error("系统错误:", e);
+		}
+		return result;
+	}
+
+	@DeleteMapping("/invalid{upperTableName}ById/{id}")
+	public ResultBean invalid{upperTableName}ById(@PathVariable("id") int id) {
+		ResultBean result = new ResultBean();
+		try {
+			{tableName}Service.invalid{upperTableName}ById(id);
+		} catch (Exception e) {
+			result.setStatus(ResultBean.STATUS_FAIL);
+			result.setMessage("系统错误，请联系管理员！");
+			log.error("系统错误:", e);
+		}
+		return result;
+	}
+
+	@PostMapping("/update{upperTableName}")
+	public ResultBean update{upperTableName}(@RequestBody {upperTableName}Bean {tableName}Bean) {
+		ResultBean result = new ResultBean();
+		try {
+			{tableName}Service.update{upperTableName}({tableName}Bean);
+			result.setObject({tableName}Bean);
+		} catch (Exception e) {
+			result.setStatus(ResultBean.STATUS_FAIL);
+			result.setMessage("系统错误，请联系管理员！");
+			log.error("系统错误:", e);
+		}
+		return result;
+	}
+
+	@GetMapping("/get{upperTableName}ById/{id}")
+	public ResultBean get{upperTableName}ById(@PathVariable("id") int id) {
+		ResultBean result = new ResultBean();
+		try {
+			{upperTableName}Bean {tableName}Bean = {tableName}Service.get{upperTableName}ById(id);
+			result.setObject({tableName}Bean);
+		} catch (Exception e) {
+			result.setStatus(ResultBean.STATUS_FAIL);
+			result.setMessage("系统错误，请联系管理员！");
+			log.error("系统错误:", e);
+		}
+		return result;
+	}
+	
+	@PostMapping("/get{upperTableName}List")
+	public ResultBean get{upperTableName}List(@RequestParam(required = false) Map<String, Object> param) {
+		ResultBean result = new ResultBean();
+		try {
+			param = param == null ? new HashMap<>() : param;
+			List<{upperTableName}Bean> list = {tableName}Service.get{upperTableName}List(param);
+			result.setList(list);
+			result.setTotal(CollectionUtils.isEmpty(list) ? 0 : list.size());
+		} catch (Exception e) {
+			result.setStatus(ResultBean.STATUS_FAIL);
+			result.setMessage("系统错误，请联系管理员！");
+			log.error("系统错误:", e);
+		}
+		return result;
+	}
+	
+	@PostMapping("/get{upperTableName}PageList")
+	public ResultBean get{upperTableName}PageList(@RequestParam(name = "param" ,required = false) Map<String, Object> param,
+								  @RequestParam(name = "page" ,required = true) int page,
+								  @RequestParam(name = "rows" ,required = true) int rows) {
+		ResultBean result = new ResultBean();
+		try {
+			param = param == null ? new HashMap<>() : param;
+			if (page > 0 && rows > 0) {
+				LimitBean limit = new LimitBean(rows,page);
+				param.put("limit", limit);
+			}
+			List<{upperTableName}Bean> list = {tableName}Service.get{upperTableName}List(param);
+			int count = {tableName}Service.get{upperTableName}ListCount(param);
+			result.setList(list);
+			result.setTotal(count);
+		} catch (Exception e) {
+			result.setStatus(ResultBean.STATUS_FAIL);
+			result.setMessage("系统错误，请联系管理员！");
+			log.error("系统错误:", e);
+		}
+		return result;
+	}
+}

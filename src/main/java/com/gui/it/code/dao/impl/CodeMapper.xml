@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gui.it.code.dao.base.CodeDao">
+
+	<select id="getColumnByTableName" parameterType="map" resultType="ColumnBean">
+		SELECT TABLE_SCHEMA AS tableSchema,
+				TABLE_NAME AS tableName,
+				COLUMN_NAME AS columnName,
+				DATA_TYPE AS dataType,
+				COLUMN_COMMENT AS columnComment
+		from information_schema.columns
+		WHERE table_name=#{tableName} AND table_schema=#{schema}
+		AND COLUMN_NAME NOT IN ('is_valid','create_time','id','update_time')
+		ORDER BY ORDINAL_POSITION
+	</select>
+
+</mapper>

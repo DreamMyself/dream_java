@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.gui.it.{schema}.dao.base.{upperTableName}Dao">
+
+	<insert id="inset{upperTableName}" parameterType="{upperTableName}Bean" useGeneratedKeys="true" keyProperty="id">
+		insert into {origTableName} 
+		(
+			{origAllColumn}
+		)
+		values
+		(
+			{origAllColumnParam}
+		)
+	</insert>
+
+	<insert id="inset{upperTableName}List" parameterType="{upperTableName}Bean" useGeneratedKeys="true" keyProperty="id">
+		insert into {origTableName} 
+		(
+			{origAllColumn}
+		)
+		values
+		<foreach collection="list" item="item" separator=",">
+			(
+				{origAllItemColumnParam}
+			)
+		</foreach>
+	</insert>
+	
+	<delete id="delete{upperTableName}ById" parameterType="int">
+		delete from {origTableName} where id = #{id}
+	</delete>
+	
+	<delete id="delete{upperTableName}ByIds" parameterType="int">
+		delete from {origTableName} where id in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</delete>
+	
+	<update id="invalid{upperTableName}ById" parameterType="int">
+		update {origTableName} 
+		set is_valid = 0
+		where is_valid = 1
+		and id = #{id}
+	</update>
+	
+	<update id="invalid{upperTableName}ByIds" parameterType="int">
+		update {origTableName} 
+		set is_valid = 0
+		where is_valid = 1
+		and id in 
+		<foreach collection="list" item="item" open="(" close=")" separator=",">
+			#{item}
+		</foreach>
+	</update>
+	
+	<update id="update{upperTableName}" parameterType="{upperTableName}Bean">
+		update {origTableName} set 
+			{allUpdateColumn}
+		where is_valid = 1
+		and id = #{id}
+	</update>
+	
+	<select id="get{upperTableName}ById" resultType="{upperTableName}Bean" parameterType="int">
+		select * from {origTableName} where is_valid = 1 and id = #{id}
+	</select>
+	
+	<sql id="condition_sql">
+{allColumnContiion}
+	</sql>
+	
+	<select id="get{upperTableName}List" resultType="{upperTableName}Bean" parameterType="map">
+		select * from {origTableName} where is_valid = 1 
+		<include refid="condition_sql"/>
+		<if test="limit != null">
+			limit #{limit.start},#{limit.end}
+		</if>
+	</select>
+	
+	<select id="get{upperTableName}ListCount" resultType="int" parameterType="map">
+		select count(*) from {origTableName} where is_valid = 1 
+		<include refid="condition_sql"/>
+	</select>
+
+</mapper>

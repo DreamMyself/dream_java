@@ -1,0 +1,74 @@
+package com.gui.it.{schema}.service.impl;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import com.gui.it.{schema}.bean.{upperTableName}Bean;
+import com.gui.it.{schema}.dao.base.{upperTableName}Dao;
+import com.gui.it.{schema}.service.base.{upperTableName}Service;
+
+@Service
+public class {upperTableName}ServiceImpl implements {upperTableName}Service {
+
+	@Autowired
+	private {upperTableName}Dao {tableName}Dao;
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public {upperTableName}Bean inset{upperTableName}({upperTableName}Bean {tableName}Bean) throws Exception {
+		int count = {tableName}Dao.inset{upperTableName}({tableName}Bean);
+		if (count != 1) {
+			throw new Exception();
+		}
+		return {tableName}Bean;
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void delete{upperTableName}ById(int id) throws Exception {
+		int count = {tableName}Dao.delete{upperTableName}ById(id);
+		if (count != 1) {
+			throw new Exception();
+		}
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public void invalid{upperTableName}ById(int id) throws Exception {
+		int count = {tableName}Dao.invalid{upperTableName}ById(id);
+		if (count != 1) {
+			throw new Exception();
+		}
+	}
+
+	@Override
+	@Transactional(rollbackFor = Exception.class)
+	public {upperTableName}Bean update{upperTableName}({upperTableName}Bean {tableName}Bean) throws Exception {
+		int count = {tableName}Dao.update{upperTableName}({tableName}Bean);
+		if (count != 1) {
+			throw new Exception();
+		}
+		return {tableName}Bean;
+	}
+
+	@Override
+	public {upperTableName}Bean get{upperTableName}ById(int id) throws Exception {
+		return {tableName}Dao.get{upperTableName}ById(id);
+	}
+
+	@Override
+	public List<{upperTableName}Bean> get{upperTableName}List(Map<String, Object> param)
+			throws Exception {
+		return {tableName}Dao.get{upperTableName}List(param);
+	}
+
+	@Override
+	public int get{upperTableName}ListCount(Map<String, Object> param) throws Exception {
+		return {tableName}Dao.get{upperTableName}ListCount(param);
+	}
+
+}

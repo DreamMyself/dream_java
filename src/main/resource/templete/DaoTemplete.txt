@@ -1,0 +1,29 @@
+package com.gui.it.{schema}.dao.base;
+
+import java.util.List;
+import java.util.Map;
+import org.apache.ibatis.annotations.Param;
+import com.gui.it.{schema}.bean.{upperTableName}Bean;
+
+public interface {upperTableName}Dao {
+
+	int inset{upperTableName}({upperTableName}Bean {tableName}Bean);
+
+	int inset{upperTableName}List(@Param("list") List<{upperTableName}Bean> list);
+
+	int delete{upperTableName}ById(int id);
+
+	int delete{upperTableName}ByIds(@Param("list") List<Integer> list);
+
+	int invalid{upperTableName}ById(int id);
+
+	int invalid{upperTableName}ByIds(@Param("list") List<Integer> list);
+
+	int update{upperTableName}({upperTableName}Bean {tableName}Bean);
+
+	{upperTableName}Bean get{upperTableName}ById(int id);
+
+	List<{upperTableName}Bean> get{upperTableName}List(Map<String, Object> param);
+
+	int get{upperTableName}ListCount(Map<String, Object> param);
+}
